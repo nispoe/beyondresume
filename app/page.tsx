@@ -95,7 +95,6 @@ export default function HomePage() {
             <div className="panelHeader">
               <h2>John Agentic Persona</h2>
               <p>Paste John's structured profile JSON here.</p>
-            <p>Deployment check: this build is connected to GitHub and Vercel.</p>
             </div>
             <div className="panelBody">
               <div className="field">
