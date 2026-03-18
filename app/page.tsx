@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, KeyboardEvent, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import { sampleJobProfile, sampleJohnProfile } from "@/lib/sample-data";
 import {
   CompanyChatMessage,
@@ -78,6 +78,37 @@ export default function HomePage() {
   const [emailReportMessage, setEmailReportMessage] = useState<string | null>(null);
   const [activeEmailAudience, setActiveEmailAudience] = useState<EmailReportAudience | null>(null);
 
+  useEffect(() => {
+    void hydrateStoredProfiles();
+  }, []);
+
+  async function hydrateStoredProfiles() {
+    try {
+      const response = await fetch("/api/profiles", {
+        cache: "no-store"
+      });
+      const payload = (await response.json()) as {
+        johnProfileText?: string;
+        jobProfileText?: string;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Could not load profiles.");
+      }
+
+      if (payload.johnProfileText) {
+        setJohnProfileText(payload.johnProfileText);
+      }
+
+      if (payload.jobProfileText) {
+        setJobProfileText(payload.jobProfileText);
+      }
+    } catch {
+      // Keep the bundled sample JSON if the persisted fetch fails.
+    }
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -143,7 +174,7 @@ export default function HomePage() {
 
       setJohnProfileText(payload.johnProfileText);
       setJohnSupplementalContext("");
-      setSaveJohnNotesMessage("John notes were saved into the JSON file.");
+      setSaveJohnNotesMessage("John notes were saved into persistent storage.");
     } catch (saveError) {
       setSaveJohnNotesError(saveError instanceof Error ? saveError.message : "Something went wrong.");
     } finally {
@@ -179,7 +210,7 @@ export default function HomePage() {
 
       setJobProfileText(payload.jobProfileText);
       setCompanySupplementalContext("");
-      setSaveCompanyNotesMessage("Northstar notes were saved into the JSON file.");
+      setSaveCompanyNotesMessage("Northstar notes were saved into persistent storage.");
     } catch (saveError) {
       setSaveCompanyNotesError(
         saveError instanceof Error ? saveError.message : "Something went wrong."
@@ -342,10 +373,8 @@ export default function HomePage() {
     }
   }
 
-  function loadSamples() {
-    setJohnProfileText(sampleJohnProfile);
+  async function loadSamples() {
     setJohnSupplementalContext("");
-    setJobProfileText(sampleJobProfile);
     setCompanySupplementalContext("");
     setError(null);
     setSaveJohnNotesError(null);
@@ -362,6 +391,7 @@ export default function HomePage() {
     setEmailReportMessage(null);
     setActiveEmailAudience(null);
     setResult(null);
+    await hydrateStoredProfiles();
   }
 
   const recommendationTone = result
@@ -685,7 +715,7 @@ export default function HomePage() {
                     <button className="button buttonPrimary" disabled={isLoading} type="submit">
                       {isLoading ? "Running interview..." : "Run match"}
                     </button>
-                    <button className="button buttonGhost" onClick={loadSamples} type="button">
+                    <button className="button buttonGhost" onClick={() => void loadSamples()} type="button">
                       Load samples
                     </button>
                   </div>
@@ -739,6 +769,8 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
+
 
 
 

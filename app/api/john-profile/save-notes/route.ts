@@ -1,6 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { NextResponse } from "next/server";
+import { saveStoredJohnProfileText } from "@/lib/profile-store";
 
 type JohnProfile = {
   identity?: { name?: string; headline?: string; location?: string };
@@ -42,9 +41,8 @@ export async function POST(request: Request) {
       delete updatedProfile.notes;
     }
 
-    const filePath = path.join(process.cwd(), "data", "john-profile.json");
-    const nextJson = `${JSON.stringify(updatedProfile, null, 2)}\n`;
-    await fs.writeFile(filePath, nextJson, "utf8");
+    const nextJson = JSON.stringify(updatedProfile, null, 2) + "\n";
+    await saveStoredJohnProfileText(nextJson);
 
     return NextResponse.json({
       saved: true,

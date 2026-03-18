@@ -1,6 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { NextResponse } from "next/server";
+import { saveStoredJobProfileText } from "@/lib/profile-store";
 
 type JobProfile = {
   company?: {
@@ -49,9 +48,8 @@ export async function POST(request: Request) {
       delete updatedProfile.company.notes;
     }
 
-    const filePath = path.join(process.cwd(), "data", "job-profile.json");
-    const nextJson = `${JSON.stringify(updatedProfile, null, 2)}\n`;
-    await fs.writeFile(filePath, nextJson, "utf8");
+    const nextJson = JSON.stringify(updatedProfile, null, 2) + "\n";
+    await saveStoredJobProfileText(nextJson);
 
     return NextResponse.json({
       saved: true,
