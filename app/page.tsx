@@ -27,6 +27,22 @@ const initialCompanyChatMessages: CompanyChatMessage[] = [
 
 const placeholderAgents = ["Abhinav", "Daniel", "Garrett", "Amir", "Syed", "Prajesh", "Subu"];
 
+function formatSpeakerLabel(role: string) {
+  if (role === "northstar" || role === "employer") {
+    return "Northstar Labs";
+  }
+
+  if (role === "john") {
+    return "John";
+  }
+
+  if (role === "user") {
+    return "You";
+  }
+
+  return role;
+}
+
 export default function HomePage() {
   const [johnProfileText, setJohnProfileText] = useState(sampleJohnProfile);
   const [johnSupplementalContext, setJohnSupplementalContext] = useState("");
@@ -385,7 +401,7 @@ export default function HomePage() {
                   <div className="chatTranscript" aria-live="polite">
                     {johnChatMessages.map((message, index) => (
                       <div className={`chatBubble chatBubble-${message.role}`} key={`${message.role}-${index}`}>
-                        <span className="messageRole">{message.role}</span>
+                        <span className="messageRole">{formatSpeakerLabel(message.role)}</span>
                         <p>{message.content}</p>
                       </div>
                     ))}
@@ -468,7 +484,7 @@ export default function HomePage() {
                 <div className="chatTranscript" aria-live="polite">
                   {companyChatMessages.map((message, index) => (
                     <div className={`chatBubble chatBubble-${message.role}`} key={`${message.role}-${index}`}>
-                      <span className="messageRole">{message.role}</span>
+                      <span className="messageRole">{formatSpeakerLabel(message.role)}</span>
                       <p>{message.content}</p>
                     </div>
                   ))}
@@ -571,7 +587,7 @@ export default function HomePage() {
                     <div className="transcript">
                       {result.transcript.map((message, index) => (
                         <div className="message" key={`${message.role}-${index}`}>
-                          <span className="messageRole">{message.role}</span>
+                          <span className="messageRole">{formatSpeakerLabel(message.role)}</span>
                           <pre>{message.content}</pre>
                         </div>
                       ))}
@@ -646,3 +662,4 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
