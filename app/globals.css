@@ -663,3 +663,51 @@ pre {
 .placeholderAgentPanel.placeholderTone-7 {
   background: linear-gradient(180deg, rgba(243, 251, 250, 0.98) 0%, rgba(220, 240, 237, 0.94) 100%);
 }
+.heroLeadCard {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(40, 79, 121, 0.16);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 248, 255, 0.94) 100%);
+  box-shadow: 0 12px 28px rgba(40, 79, 121, 0.08);
+}
+
+.heroLeadCard h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.heroLeadCard p {
+  max-width: none;
+}
+
+.heroLeadForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.heroLeadForm input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 14px;
+  background: rgba(243, 246, 248, 0.95);
+  color: var(--text);
+}
+
+.heroLeadStatus {
+  margin-top: 0;
+}
+@media (max-width: 720px) {
+  .heroLeadForm {
+    grid-template-columns: 1fr;
+  }
+
+  .heroLeadForm .button {
+    width: 100%;
+  }
+}

@@ -77,6 +77,10 @@ export default function HomePage() {
   const [emailReportError, setEmailReportError] = useState<string | null>(null);
   const [emailReportMessage, setEmailReportMessage] = useState<string | null>(null);
   const [activeEmailAudience, setActiveEmailAudience] = useState<EmailReportAudience | null>(null);
+  const [personaLeadEmail, setPersonaLeadEmail] = useState("");
+  const [personaLeadMessage, setPersonaLeadMessage] = useState<string | null>(null);
+  const [personaLeadError, setPersonaLeadError] = useState<string | null>(null);
+  const [isPersonaLeadLoading, setIsPersonaLeadLoading] = useState(false);
 
   useEffect(() => {
     void hydrateStoredProfiles();
@@ -109,6 +113,48 @@ export default function HomePage() {
     }
   }
 
+  async function sendPersonaLead() {
+    const trimmedEmail = personaLeadEmail.trim();
+    if (!trimmedEmail || isPersonaLeadLoading) {
+      return;
+    }
+
+    setPersonaLeadError(null);
+    setPersonaLeadMessage(null);
+    setIsPersonaLeadLoading(true);
+
+    try {
+      const response = await fetch("/api/beyond-persona", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: trimmedEmail
+        })
+      });
+
+      const payload = (await response.json()) as {
+        message?: string;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Could not send your request.");
+      }
+
+      setPersonaLeadMessage(
+        payload.message || "Thanks. We will follow up with more Beyond Persona information."
+      );
+      setPersonaLeadEmail("");
+    } catch (leadError) {
+      setPersonaLeadError(
+        leadError instanceof Error ? leadError.message : "Something went wrong."
+      );
+    } finally {
+      setIsPersonaLeadLoading(false);
+    }
+  }
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -415,6 +461,38 @@ export default function HomePage() {
               This prototype runs a short employer-to-John conversation, then returns a structured
               match report across skills, culture, motivation, and constraints.
             </p>
+
+            <div className="heroLeadCard">
+              <div>
+                <h2>Get Your Beyond Persona</h2>
+                <p>
+                  Send your email to Beyond Resume and get more information about your own personal
+                  Beyond Persona for interviews.
+                </p>
+              </div>
+              <div className="heroLeadForm">
+                <label className="srOnly" htmlFor="persona-lead-email">
+                  Your email
+                </label>
+                <input
+                  id="persona-lead-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={personaLeadEmail}
+                  onChange={(event) => setPersonaLeadEmail(event.target.value)}
+                />
+                <button
+                  className="button buttonPrimary"
+                  disabled={isPersonaLeadLoading}
+                  type="button"
+                  onClick={() => void sendPersonaLead()}
+                >
+                  {isPersonaLeadLoading ? "Sending..." : "Send"}
+                </button>
+              </div>
+              {personaLeadMessage ? <p className="status heroLeadStatus">{personaLeadMessage}</p> : null}
+              {personaLeadError ? <p className="error heroLeadStatus">{personaLeadError}</p> : null}
+            </div>
           </div>
 
           <div className="brandLockup" aria-label="Beyond Resume">
@@ -769,6 +847,8 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
+
 
 
 
