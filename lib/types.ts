@@ -29,6 +29,12 @@ export type MatchResult = {
   evaluation: MatchEvaluation;
 };
 
+export type EmailReportAudience = "john" | "northstar";
+
+export type EmailReportResult = {
+  message: string;
+};
+
 export type JohnChatRole = "user" | "john";
 
 export type JohnChatMessage = {

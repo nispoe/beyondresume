@@ -6,6 +6,8 @@ import { sampleJobProfile, sampleJohnProfile } from "@/lib/sample-data";
 import {
   CompanyChatMessage,
   CompanyChatResult,
+  EmailReportAudience,
+  EmailReportResult,
   JohnChatMessage,
   JohnChatResult,
   MatchResult
@@ -72,10 +74,16 @@ export default function HomePage() {
   const [companyChatError, setCompanyChatError] = useState<string | null>(null);
   const [isCompanyChatLoading, setIsCompanyChatLoading] = useState(false);
 
+  const [emailReportError, setEmailReportError] = useState<string | null>(null);
+  const [emailReportMessage, setEmailReportMessage] = useState<string | null>(null);
+  const [activeEmailAudience, setActiveEmailAudience] = useState<EmailReportAudience | null>(null);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
+    setEmailReportError(null);
+    setEmailReportMessage(null);
 
     try {
       const response = await fetch("/api/match", {
@@ -178,6 +186,43 @@ export default function HomePage() {
       );
     } finally {
       setIsSavingCompanyNotes(false);
+    }
+  }
+
+  async function sendEmailReport(audience: EmailReportAudience) {
+    if (!result || activeEmailAudience) {
+      return;
+    }
+
+    setEmailReportError(null);
+    setEmailReportMessage(null);
+    setActiveEmailAudience(audience);
+
+    try {
+      const response = await fetch("/api/email-report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          audience,
+          result,
+          johnProfileText,
+          jobProfileText
+        })
+      });
+
+      const payload = (await response.json()) as EmailReportResult & { error?: string };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Could not send email report.");
+      }
+
+      setEmailReportMessage(payload.message);
+    } catch (sendError) {
+      setEmailReportError(sendError instanceof Error ? sendError.message : "Something went wrong.");
+    } finally {
+      setActiveEmailAudience(null);
     }
   }
 
@@ -313,6 +358,9 @@ export default function HomePage() {
     setCompanyChatMessages(initialCompanyChatMessages);
     setJohnChatInput("");
     setCompanyChatInput("");
+    setEmailReportError(null);
+    setEmailReportMessage(null);
+    setActiveEmailAudience(null);
     setResult(null);
   }
 
@@ -583,6 +631,35 @@ export default function HomePage() {
                   </article>
 
                   <article className="card">
+                    <h3>Email report</h3>
+                    <p className="cardSubtle">
+                      Send the latest match report to the email stored in the selected John or Northstar Labs JSON profile.
+                    </p>
+                    <div className="actions">
+                      <button
+                        className="button buttonPrimary"
+                        disabled={activeEmailAudience !== null}
+                        type="button"
+                        onClick={() => void sendEmailReport("john")}
+                      >
+                        {activeEmailAudience === "john" ? "Sending..." : "Send as John Agent"}
+                      </button>
+                      <button
+                        className="button buttonGhost"
+                        disabled={activeEmailAudience !== null}
+                        type="button"
+                        onClick={() => void sendEmailReport("northstar")}
+                      >
+                        {activeEmailAudience === "northstar"
+                          ? "Sending..."
+                          : "Send as Northstar Labs Agent"}
+                      </button>
+                    </div>
+                    {emailReportMessage ? <p className="status">{emailReportMessage}</p> : null}
+                    {emailReportError ? <p className="error">{emailReportError}</p> : null}
+                  </article>
+
+                  <article className="card">
                     <h3>Transcript</h3>
                     <div className="transcript">
                       {result.transcript.map((message, index) => (
@@ -662,4 +739,5 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
 

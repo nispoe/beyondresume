@@ -2,43 +2,76 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "JohnProfile",
   "type": "object",
-  "required": ["identity", "summary", "skills", "preferences"],
+  "required": [
+    "identity",
+    "summary",
+    "skills",
+    "preferences"
+  ],
   "properties": {
     "identity": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "headline": { "type": "string" },
-        "location": { "type": "string" }
+        "name": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
       }
     },
-    "summary": { "type": "string" },
+    "summary": {
+      "type": "string"
+    },
     "skills": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "notes": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "preferences": {
       "type": "object",
       "properties": {
         "preferred_roles": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "work_style": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "deal_breakers": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "remote_preference": { "type": "string" },
-        "salary_range": { "type": "string" }
+        "remote_preference": {
+          "type": "string"
+        },
+        "salary_range": {
+          "type": "string"
+        }
       }
     }
   }
