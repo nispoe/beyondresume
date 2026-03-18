@@ -29,6 +29,45 @@ const initialCompanyChatMessages: CompanyChatMessage[] = [
 
 const placeholderAgents = ["Abhinav", "Daniel", "Garrett", "Amir", "Syed", "Prajesh", "Subu"];
 
+const testimonials = [
+  {
+    name: "Maya R.",
+    role: "Product leader",
+    quote: "Beyond Resume helped me explain my story in a way that finally felt crisp, credible, and interview-ready.",
+    rating: 5
+  },
+  {
+    name: "Ethan C.",
+    role: "Operations manager",
+    quote: "The Beyond Persona framing gave me better examples, tighter answers, and way more confidence going into final rounds.",
+    rating: 5
+  },
+  {
+    name: "Priya S.",
+    role: "Strategy candidate",
+    quote: "It felt like having a mock interviewer and a positioning coach in the same workflow.",
+    rating: 5
+  },
+  {
+    name: "Jordan L.",
+    role: "Program manager",
+    quote: "I loved seeing strengths, risks, and follow-up questions in one place. It made my prep feel much more intentional.",
+    rating: 4
+  },
+  {
+    name: "Trevor K.",
+    role: "Definitely not overprepared",
+    quote: "One star. I only wanted a quick pep talk and accidentally walked into my interview sounding thoughtful, structured, and suspiciously competent.",
+    rating: 1
+  },
+  {
+    name: "Lena P.",
+    role: "Emotionally available candidate",
+    quote: "Three stars. The prep was excellent, but when it surfaced my actual strengths so clearly I had to sit in my car for ten minutes and process feelings.",
+    rating: 3
+  }
+];
+
 function formatSpeakerLabel(role: string) {
   if (role === "northstar" || role === "employer") {
     return "Northstar Labs";
@@ -508,6 +547,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="testimonialBand">
+        <div className="testimonialBandHeader">
+          <span className="eyebrow">Testimonials</span>
+          <h2>What people say about Beyond Resume</h2>
+        </div>
+        <div className="testimonialViewport">
+          <div className="testimonialTrack">
+            {[...testimonials, ...testimonials].map((item, index) => (
+              <article className="testimonialCard" key={`${item.name}-${index}`}>
+                <div className="testimonialStars" aria-label={`${item.rating} star rating`}>
+                  {"★".repeat(item.rating)}
+                </div>
+                <p className="testimonialQuote">“{item.quote}”</p>
+                <div className="testimonialMeta">
+                  <strong>{item.name}</strong>
+                  <span>{item.role}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="page">
         <form className="grid" onSubmit={handleSubmit}>
           <div className="agentColumn">
@@ -847,6 +909,9 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
+
+
 
 
 
