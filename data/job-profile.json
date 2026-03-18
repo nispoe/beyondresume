@@ -1,0 +1,24 @@
+{
+  "company": {
+    "name": "Northstar Labs",
+    "industry": "B2B software",
+    "summary": "Northstar Labs is a growing software company hiring an operations-minded product leader to improve internal execution and launch new workflows."
+  },
+  "role": {
+    "title": "Senior Product Operations Manager",
+    "required_skills": [
+      "operations",
+      "cross-functional leadership",
+      "stakeholder communication",
+      "process design"
+    ],
+    "nice_to_have_skills": ["analytics", "customer research", "change management"],
+    "culture_notes": [
+      "fast-moving but collaborative",
+      "high trust",
+      "strong written communication"
+    ],
+    "location_expectation": "hybrid in New York",
+    "compensation_band": "$160k-$185k"
+  }
+}

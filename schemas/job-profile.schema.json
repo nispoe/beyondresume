@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JobProfile",
+  "type": "object",
+  "required": ["company", "role"],
+  "properties": {
+    "company": {
+      "type": "object",
+      "required": ["name", "summary"],
+      "properties": {
+        "name": { "type": "string" },
+        "industry": { "type": "string" },
+        "summary": { "type": "string" }
+      }
+    },
+    "role": {
+      "type": "object",
+      "required": ["title", "required_skills"],
+      "properties": {
+        "title": { "type": "string" },
+        "required_skills": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "nice_to_have_skills": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "culture_notes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "location_expectation": { "type": "string" },
+        "compensation_band": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "identity": {
+    "name": "John",
+    "headline": "Product-minded operator and builder",
+    "location": "New York, NY"
+  },
+  "summary": "John is a cross-functional operator who enjoys building systems, improving processes, and working closely with stakeholders to turn ambiguous needs into shipped work.",
+  "skills": [
+    "product strategy",
+    "operations",
+    "stakeholder communication",
+    "process design",
+    "project leadership"
+  ],
+  "preferences": {
+    "preferred_roles": ["product", "operations", "strategy", "program management"],
+    "work_style": ["collaborative", "high-ownership", "clear communication", "pragmatic"],
+    "deal_breakers": ["unclear role scope", "misaligned values", "chronic fire-drill culture"],
+    "remote_preference": "hybrid or remote",
+    "salary_range": "$140k-$190k"
+  }
+}
