@@ -595,3 +595,71 @@ pre {
 .actionsTight {
   margin-top: 0;
 }
+
+.actionsCenteredBelow {
+  justify-content: center;
+  margin-top: 0;
+}
+
+.placeholderAgentsCard {
+  display: grid;
+  gap: 14px;
+}
+
+.placeholderAgentGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.placeholderAgentItem {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(243, 246, 248, 0.95);
+}
+
+.placeholderAgentItem span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.agentColumn {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.placeholderAgentPanel .panelHeader {
+  padding-bottom: 20px;
+}
+
+.placeholderAgentPanel.placeholderTone-1 {
+  background: linear-gradient(180deg, rgba(255, 250, 239, 0.98) 0%, rgba(255, 243, 214, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-2 {
+  background: linear-gradient(180deg, rgba(244, 250, 255, 0.98) 0%, rgba(223, 238, 249, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-3 {
+  background: linear-gradient(180deg, rgba(247, 252, 245, 0.98) 0%, rgba(226, 242, 220, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-4 {
+  background: linear-gradient(180deg, rgba(253, 245, 250, 0.98) 0%, rgba(242, 224, 236, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-5 {
+  background: linear-gradient(180deg, rgba(244, 248, 255, 0.98) 0%, rgba(223, 230, 247, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-6 {
+  background: linear-gradient(180deg, rgba(255, 247, 243, 0.98) 0%, rgba(247, 227, 218, 0.94) 100%);
+}
+
+.placeholderAgentPanel.placeholderTone-7 {
+  background: linear-gradient(180deg, rgba(243, 251, 250, 0.98) 0%, rgba(220, 240, 237, 0.94) 100%);
+}

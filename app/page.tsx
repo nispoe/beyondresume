@@ -25,6 +25,8 @@ const initialCompanyChatMessages: CompanyChatMessage[] = [
   }
 ];
 
+const placeholderAgents = ["Abhinav", "Daniel", "Garrett", "Amir", "Syed", "Prajesh", "Subu"];
+
 export default function HomePage() {
   const [johnProfileText, setJohnProfileText] = useState(sampleJohnProfile);
   const [johnSupplementalContext, setJohnSupplementalContext] = useState("");
@@ -295,6 +297,7 @@ export default function HomePage() {
     setCompanyChatMessages(initialCompanyChatMessages);
     setJohnChatInput("");
     setCompanyChatInput("");
+    setResult(null);
   }
 
   const recommendationTone = result
@@ -316,7 +319,7 @@ export default function HomePage() {
             <h1>Interview John before a human ever has to.</h1>
             <p>
               This prototype runs a short employer-to-John conversation, then returns a structured
-              fit report across skills, culture, motivation, and constraints.
+              match report across skills, culture, motivation, and constraints.
             </p>
           </div>
 
@@ -335,78 +338,89 @@ export default function HomePage() {
 
       <section className="page">
         <form className="grid" onSubmit={handleSubmit}>
-          <section className="panel">
-            <div className="panelHeader">
-              <h2>John Agent</h2>
-              <p>Paste John's structured profile JSON here.</p>
-            </div>
-            <div className="panelBody stack">
-              <div className="field">
-                <label htmlFor="john-profile">Profile JSON</label>
-                <textarea
-                  id="john-profile"
-                  value={johnProfileText}
-                  onChange={(event) => setJohnProfileText(event.target.value)}
-                />
+          <div className="agentColumn">
+            <section className="panel">
+              <div className="panelHeader">
+                <h2>John Agent</h2>
+                <p>Paste John's structured profile JSON here.</p>
               </div>
-
-              <div className="field fieldCompact">
-                <label htmlFor="john-supplemental-context">Extra John Notes</label>
-                <textarea
-                  id="john-supplemental-context"
-                  value={johnSupplementalContext}
-                  onChange={(event) => setJohnSupplementalContext(event.target.value)}
-                  placeholder={"Add random facts here, one per line.\nExample: I love rainy Sundays.\nExample: I have a dog named Miso."}
-                />
-              </div>
-
-              <div className="actions actionsRight actionsTight">
-                <button className="button buttonPrimary" disabled={isSavingJohnNotes} type="button" onClick={() => void saveJohnNotesToJson()}>
-                  {isSavingJohnNotes ? "Saving..." : "Update"}
-                </button>
-              </div>
-              {saveJohnNotesMessage ? <p className="status">{saveJohnNotesMessage}</p> : null}
-              {saveJohnNotesError ? <p className="error">{saveJohnNotesError}</p> : null}
-
-              <article className="card chatCard">
-                <div className="cardHeaderInline">
-                  <div>
-                    <h3>Ask John</h3>
-                    <p className="cardSubtle">
-                      Ask grounded questions about the profile or the extra notes you add here.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="chatTranscript" aria-live="polite">
-                  {johnChatMessages.map((message, index) => (
-                    <div className={`chatBubble chatBubble-${message.role}`} key={`${message.role}-${index}`}>
-                      <span className="messageRole">{message.role}</span>
-                      <p>{message.content}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="chatComposer">
-                  <label className="srOnly" htmlFor="john-chat-input">
-                    Ask John a question
-                  </label>
-                  <input
-                    id="john-chat-input"
-                    onChange={(event) => setJohnChatInput(event.target.value)}
-                    onKeyDown={handleJohnChatKeyDown}
-                    placeholder="Do I have a dog named Miso?"
-                    value={johnChatInput}
+              <div className="panelBody stack">
+                <div className="field">
+                  <label htmlFor="john-profile">Profile JSON</label>
+                  <textarea
+                    id="john-profile"
+                    value={johnProfileText}
+                    onChange={(event) => setJohnProfileText(event.target.value)}
                   />
-                  <button className="button buttonPrimary" disabled={isJohnChatLoading} type="button" onClick={() => void askJohn()}>
-                    {isJohnChatLoading ? "Asking..." : "Ask John"}
+                </div>
+
+                <div className="field fieldCompact">
+                  <label htmlFor="john-supplemental-context">Extra John Notes</label>
+                  <textarea
+                    id="john-supplemental-context"
+                    value={johnSupplementalContext}
+                    onChange={(event) => setJohnSupplementalContext(event.target.value)}
+                    placeholder={"Add random facts here, one per line.\nExample: I love rainy Sundays.\nExample: I have a dog named Miso."}
+                  />
+                </div>
+
+                <div className="actions actionsRight actionsTight">
+                  <button className="button buttonPrimary" disabled={isSavingJohnNotes} type="button" onClick={() => void saveJohnNotesToJson()}>
+                    {isSavingJohnNotes ? "Saving..." : "Update"}
                   </button>
                 </div>
+                {saveJohnNotesMessage ? <p className="status">{saveJohnNotesMessage}</p> : null}
+                {saveJohnNotesError ? <p className="error">{saveJohnNotesError}</p> : null}
 
-                {johnChatError ? <p className="error">{johnChatError}</p> : null}
-              </article>
-            </div>
-          </section>
+                <article className="card chatCard">
+                  <div className="cardHeaderInline">
+                    <div>
+                      <h3>Ask John</h3>
+                      <p className="cardSubtle">
+                        Ask grounded questions about the profile or the extra notes you add here.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="chatTranscript" aria-live="polite">
+                    {johnChatMessages.map((message, index) => (
+                      <div className={`chatBubble chatBubble-${message.role}`} key={`${message.role}-${index}`}>
+                        <span className="messageRole">{message.role}</span>
+                        <p>{message.content}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="chatComposer">
+                    <label className="srOnly" htmlFor="john-chat-input">
+                      Ask John a question
+                    </label>
+                    <input
+                      id="john-chat-input"
+                      onChange={(event) => setJohnChatInput(event.target.value)}
+                      onKeyDown={handleJohnChatKeyDown}
+                      placeholder="Do I have a dog named Miso?"
+                      value={johnChatInput}
+                    />
+                    <button className="button buttonPrimary" disabled={isJohnChatLoading} type="button" onClick={() => void askJohn()}>
+                      {isJohnChatLoading ? "Asking..." : "Ask John"}
+                    </button>
+                  </div>
+
+                  {johnChatError ? <p className="error">{johnChatError}</p> : null}
+                </article>
+              </div>
+            </section>
+
+            {placeholderAgents.map((agentName, index) => (
+              <section className={`panel placeholderAgentPanel placeholderTone-${index + 1}`} key={agentName}>
+                <div className="panelHeader">
+                  <h2>{agentName} Agent</h2>
+                  <p>Placeholder for another agent</p>
+                </div>
+              </section>
+            ))}
+          </div>
 
           <section className="panel">
             <div className="panelHeader">
@@ -478,16 +492,6 @@ export default function HomePage() {
 
                 {companyChatError ? <p className="error">{companyChatError}</p> : null}
               </article>
-
-              <div className="actions">
-                <button className="button buttonPrimary" disabled={isLoading} type="submit">
-                  {isLoading ? "Running interview..." : "Run match"}
-                </button>
-                <button className="button buttonGhost" onClick={loadSamples} type="button">
-                  Load samples
-                </button>
-              </div>
-              {error ? <p className="error">{error}</p> : null}
             </div>
           </section>
 
@@ -575,14 +579,26 @@ export default function HomePage() {
                   </article>
                 </div>
               ) : (
-                <article className="card cardEmpty">
-                  <h3>Ready to run</h3>
-                  <p>
-                    Use the sample data or paste your own JSON, then run the match to generate an
-                    interview transcript and recommendation.
-                  </p>
-                </article>
+                <div className="stack">
+                  <article className="card cardEmpty">
+                    <h3>Ready to run</h3>
+                    <p>
+                      Use the sample data or paste your own JSON, then run the match to generate an
+                      interview transcript and recommendation.
+                    </p>
+                  </article>
+
+                  <div className="actions actionsCenteredBelow">
+                    <button className="button buttonPrimary" disabled={isLoading} type="submit">
+                      {isLoading ? "Running interview..." : "Run match"}
+                    </button>
+                    <button className="button buttonGhost" onClick={loadSamples} type="button">
+                      Load samples
+                    </button>
+                  </div>
+                </div>
               )}
+              {error ? <p className="error">{error}</p> : null}
             </div>
           </section>
         </form>
