@@ -633,7 +633,7 @@ export default function HomePage() {
                   <article className="card">
                     <h3>Email report</h3>
                     <p className="cardSubtle">
-                      Send the latest match report to the email stored in the selected John or Northstar Labs JSON profile.
+                      Send the latest match report.
                     </p>
                     <div className="actions">
                       <button
@@ -642,7 +642,7 @@ export default function HomePage() {
                         type="button"
                         onClick={() => void sendEmailReport("john")}
                       >
-                        {activeEmailAudience === "john" ? "Sending..." : "Send as John Agent"}
+                        {activeEmailAudience === "john" ? "Sending..." : "Send to John"}
                       </button>
                       <button
                         className="button buttonGhost"
@@ -652,7 +652,7 @@ export default function HomePage() {
                       >
                         {activeEmailAudience === "northstar"
                           ? "Sending..."
-                          : "Send as Northstar Labs Agent"}
+                          : "Send to Northstar Labs"}
                       </button>
                     </div>
                     {emailReportMessage ? <p className="status">{emailReportMessage}</p> : null}
@@ -739,5 +739,7 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
+
 
 
