@@ -39,7 +39,8 @@ a {
 }
 
 button,
-textarea {
+textarea,
+input {
   font: inherit;
 }
 
@@ -154,7 +155,8 @@ textarea {
 }
 
 .panelHeader h2,
-.panelHeader h3 {
+.panelHeader h3,
+.card h3 {
   margin: 0;
   font-size: 1.2rem;
 }
@@ -180,6 +182,24 @@ textarea {
   font-weight: 600;
 }
 
+.actions
+{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.actionsRight
+{
+  justify-content: flex-end;
+}
+
+.actionsRight .button
+{
+  margin-left: auto;
+}
+
 .field textarea {
   width: 100%;
   min-height: 280px;
@@ -190,13 +210,6 @@ textarea {
   background: rgba(243, 246, 248, 0.95);
   color: var(--text);
   line-height: 1.45;
-}
-
-.actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 8px;
 }
 
 .button {
@@ -267,6 +280,71 @@ textarea {
   min-height: 240px;
   display: grid;
   place-content: center;
+}
+
+.cardHeaderInline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cardSubtle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.chatCard {
+  display: grid;
+  gap: 14px;
+}
+
+.chatTranscript {
+  display: grid;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.chatBubble {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.chatBubble p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.chatBubble-john {
+  background: rgba(243, 246, 248, 0.95);
+}
+
+.chatBubble-user {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(230, 246, 237, 0.92) 100%);
+  border-color: rgba(47, 133, 90, 0.18);
+}
+
+.chatComposer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.chatComposer input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 14px;
+  background: rgba(243, 246, 248, 0.95);
+  color: var(--text);
 }
 
 .recommendationRow {
@@ -430,6 +508,18 @@ pre {
   margin: 0;
 }
 
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (max-width: 1080px) {
   .stage,
   .page {
@@ -454,7 +544,25 @@ pre {
     grid-template-columns: 1fr;
   }
 
-  .field textarea {
+  .actions
+{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.actionsRight
+{
+  justify-content: flex-end;
+}
+
+.actionsRight .button
+{
+  margin-left: auto;
+}
+
+.field textarea {
     min-height: 220px;
   }
 
@@ -463,3 +571,27 @@ pre {
   }
 }
 
+@media (max-width: 720px) {
+  .topBand {
+    grid-template-columns: 1fr 42px 110px;
+    height: 64px;
+  }
+
+  .chatComposer,
+  .cardHeaderInline {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .chatComposer .button {
+    width: 100%;
+  }
+}
+
+.fieldCompact {
+  margin-bottom: 0;
+}
+
+.actionsTight {
+  margin-top: 0;
+}

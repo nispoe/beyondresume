@@ -28,3 +28,27 @@ export type MatchResult = {
   transcript: TranscriptMessage[];
   evaluation: MatchEvaluation;
 };
+
+export type JohnChatRole = "user" | "john";
+
+export type JohnChatMessage = {
+  role: JohnChatRole;
+  content: string;
+};
+
+export type JohnChatResult = {
+  mode: "mock" | "openai";
+  reply: string;
+};
+
+export type CompanyChatRole = "user" | "northstar";
+
+export type CompanyChatMessage = {
+  role: CompanyChatRole;
+  content: string;
+};
+
+export type CompanyChatResult = {
+  mode: "mock" | "openai";
+  reply: string;
+};

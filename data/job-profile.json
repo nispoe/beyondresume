@@ -2,6 +2,7 @@
   "company": {
     "name": "Northstar Labs",
     "industry": "B2B software",
+    "size": "about 120 employees",
     "summary": "Northstar Labs is a growing software company hiring an operations-minded product leader to improve internal execution and launch new workflows."
   },
   "role": {
@@ -12,13 +13,17 @@
       "stakeholder communication",
       "process design"
     ],
-    "nice_to_have_skills": ["analytics", "customer research", "change management"],
+    "nice_to_have_skills": [
+      "analytics",
+      "customer research",
+      "change management"
+    ],
     "culture_notes": [
       "fast-moving but collaborative",
       "high trust",
       "strong written communication"
     ],
-    "location_expectation": "hybrid in New York",
+    "location_expectation": "hybrid in Chicago",
     "compensation_band": "$160k-$185k"
   }
 }

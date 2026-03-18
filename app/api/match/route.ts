@@ -6,6 +6,7 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       johnProfileText?: string;
       jobProfileText?: string;
+      johnSupplementalContext?: string;
     };
 
     if (!body.johnProfileText || !body.jobProfileText) {
@@ -17,7 +18,8 @@ export async function POST(request: Request) {
 
     const result = await runMatch({
       johnProfileText: body.johnProfileText,
-      jobProfileText: body.jobProfileText
+      jobProfileText: body.jobProfileText,
+      johnSupplementalContext: body.johnSupplementalContext
     });
 
     return NextResponse.json(result);

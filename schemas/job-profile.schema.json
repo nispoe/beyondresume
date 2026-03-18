@@ -10,7 +10,12 @@
       "properties": {
         "name": { "type": "string" },
         "industry": { "type": "string" },
-        "summary": { "type": "string" }
+        "size": { "type": "string" },
+        "summary": { "type": "string" },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     },
     "role": {
