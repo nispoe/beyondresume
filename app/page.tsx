@@ -648,7 +648,7 @@ export default function HomePage() {
 
             <section className="panel placeholderAgentPanel placeholderTone-1">
               <div className="panelHeader">
-                <h2>Your Beyond Persona Here</h2>
+                <h2>Your Beyond Persona Agent Here</h2>
                 <p>Placeholder for another agent</p>
               </div>
             </section>
@@ -663,12 +663,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          <section className="panel">
-            <div className="panelHeader">
-              <h2>Northstar Labs Agent</h2>
-              <p>Paste the employer and role profile JSON here.</p>
-            </div>
-            <div className="panelBody stack">
+          <div className="agentColumn">
+            <section className="panel">
+              <div className="panelHeader">
+                <h2>Northstar Labs Agent</h2>
+                <p>Paste the employer and role profile JSON here.</p>
+              </div>
+              <div className="panelBody stack">
               <div className="field">
                 <label htmlFor="job-profile">Role JSON</label>
                 <textarea
@@ -734,7 +735,15 @@ export default function HomePage() {
                 {companyChatError ? <p className="error">{companyChatError}</p> : null}
               </article>
             </div>
-          </section>
+            </section>
+
+            <section className="panel placeholderAgentPanel placeholderTone-2">
+              <div className="panelHeader">
+                <h2>Your Beyond Company Persona Agent Here</h2>
+                <p>Placeholder for another agent</p>
+              </div>
+            </section>
+          </div>
 
           <section className="panel resultPanel">
             <div className="panelHeader">
@@ -916,6 +925,7 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
 
 
 
