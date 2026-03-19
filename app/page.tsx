@@ -648,7 +648,7 @@ export default function HomePage() {
 
             <section className="panel placeholderAgentPanel placeholderTone-1">
               <div className="panelHeader">
-                <h2>Your Beyond Persona Agent Here</h2>
+                <h2>Your Beyond Persona Agent</h2>
                 <p>Placeholder for another agent</p>
               </div>
             </section>
@@ -739,7 +739,7 @@ export default function HomePage() {
 
             <section className="panel placeholderAgentPanel placeholderTone-2">
               <div className="panelHeader">
-                <h2>Your Beyond Company Persona Agent Here</h2>
+                <h2>Your Beyond Company Persona Agent</h2>
                 <p>Placeholder for another agent</p>
               </div>
             </section>
@@ -925,6 +925,7 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
 
 
 
