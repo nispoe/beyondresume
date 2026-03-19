@@ -646,8 +646,15 @@ export default function HomePage() {
               </div>
             </section>
 
+            <section className="panel placeholderAgentPanel placeholderTone-1">
+              <div className="panelHeader">
+                <h2>Your Beyond Persona Here</h2>
+                <p>Placeholder for another agent</p>
+              </div>
+            </section>
+
             {placeholderAgents.map((agentName, index) => (
-              <section className={`panel placeholderAgentPanel placeholderTone-${index + 1}`} key={agentName}>
+              <section className={`panel placeholderAgentPanel placeholderTone-${index + 2}`} key={agentName}>
                 <div className="panelHeader">
                   <h2>{agentName} Agent</h2>
                   <p>Placeholder for another agent</p>
@@ -909,6 +916,7 @@ function formatTone(value: "good" | "caution" | "risk") {
 
   return "Risk";
 }
+
 
 
 
