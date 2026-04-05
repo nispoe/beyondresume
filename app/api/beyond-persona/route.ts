@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const fallbackInbox = "john.kuk@gmail.com";
+const fallbackInbox = "ai@beyondresume.cv";
 
 export async function POST(request: Request) {
   try {
