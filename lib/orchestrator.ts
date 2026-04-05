@@ -160,7 +160,7 @@ async function runOpenAiMatch(input: {
   johnProfile: ParsedJohnProfile;
   jobProfile: ParsedJobProfile;
 }): Promise<MatchResult> {
-  const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
   const responseText = await requestOpenAi({
     model,
     prompt: buildMatchPrompt(input.johnProfile, input.jobProfile)
@@ -178,7 +178,7 @@ async function runOpenAiJohnChat(input: {
   johnProfile: ParsedJohnProfile;
   messages: JohnChatMessage[];
 }): Promise<JohnChatResult> {
-  const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
   const reply = await requestOpenAi({
     model,
     prompt: buildJohnChatPrompt(input.johnProfile, input.messages)
@@ -194,7 +194,7 @@ async function runOpenAiCompanyChat(input: {
   jobProfile: ParsedJobProfile;
   messages: CompanyChatMessage[];
 }): Promise<CompanyChatResult> {
-  const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
   const reply = await requestOpenAi({
     model,
     prompt: buildCompanyChatPrompt(input.jobProfile, input.messages)
